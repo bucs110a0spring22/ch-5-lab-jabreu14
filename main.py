@@ -32,6 +32,90 @@ import time
 #                   Your Code Goes Below                #
 #########################################################
 
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+    myturtle.up()
+    myturtle.goto(top_left_x,top_left_y)
+    myturtle.down()
+    sides = 4
+    for i in range (sides):
+      myturtle.forward(width)
+      myturtle.right(360/sides)
+      
+  
+  
+def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+    myturtle.up()
+    myturtle.goto(x_start,y_start)
+    myturtle.down()
+    myturtle.goto(x_end,y_end)
+
+  
+  
+def drawCircle(myturtle=None, radius=0):
+  myturtle.up()
+  myturtle.goto(0,-1)
+  myturtle.down()
+  myturtle.circle(radius)
+
+  
+def setUpDartboard(myscreen=None, myturtle=None):
+  myscreen.setworldcoordinates(-1,-1, 1, 1)
+  drawSquare(myturtle,2, -1, 1)
+  drawCircle(myturtle,1)
+  drawLine(myturtle,-1, 0, 1, 0)
+  drawLine(myturtle,0, -1, 0, 1)
+
+  
+def throwDart(myturtle=None):
+  a = random.uniform(-1, 1)
+  b = random.uniform(-1, 1)
+  myturtle.up()
+  myturtle.goto(a,b)  
+  return isInCircle(myturtle,0,0,1)
+
+
+def isInCircle(myturtle=None, circle_center_x=0, circle_center_y=0, radius=0):
+  dist = myturtle.distance(circle_center_x, circle_center_y)
+  if dist < radius:
+    myturtle.dot("green")
+    return True
+  elif dist > radius:
+    myturtle.dot("red")
+    return False
+    
+def playDarts(myturtle=None):
+  score1 = 0
+  score2 = 0
+  for i in range(10):
+    throwDart(myturtle)
+    if isInCircle(myturtle,0,0,1) ==True:
+      score1 += 1
+    throwDart(myturtle)
+    if isInCircle(myturtle,0,0,1) ==True:
+      score2 += 1
+  if score1 == score2:
+    print("It is a tie!")
+  elif score1 > score2:
+    print("player 1 wins!")
+  else:
+    print ("player 2 wins!")
+
+  print(score1)
+  print(score2)
+  
+      
+    
+def montePi(myturtle=None, num_darts=0):
+  inside_count = 0
+  for i in range(num_darts):
+    throwDart(myturtle)
+    if isInCircle(myturtle,0,0,1) ==True:
+      inside_count += 1
+  monte_Carlo = ((inside_count/num_darts)*4)
+  return monte_Carlo
+
+
+
 
 
 #########################################################
